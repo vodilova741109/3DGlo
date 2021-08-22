@@ -5,6 +5,7 @@
     "node": false
   },
   "extends": "eslint:recommended",
+  "skipBlankLines": true,
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
