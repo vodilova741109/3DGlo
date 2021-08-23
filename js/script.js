@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function(){
         let timeDay  = document.querySelector('#timer-day');
         
     
-        function getTimeRemaining(){
         let dateStop = new Date(deadline).getTime(),
             dateNow = new Date().getTime(),
             timeRemaining = (dateStop - dateNow) / 1000,
