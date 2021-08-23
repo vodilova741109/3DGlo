@@ -83,20 +83,46 @@ document.addEventListener("DOMContentLoaded", function(){
       const popup = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn'),
             popupClose = document.querySelector('.popup-close') ;
+       // анимация меню
+
+       let count = -100; 
+       let flyInterval;
+       const popupContent = document.querySelector('.popup-content');
       
+       // console.log(popupContent);
+          
+
+      let animate = false;     
+
+         
+      let flyAnimate = function(){
+        flyInterval = requestAnimationFrame(flyAnimate);
+        count++;        
+        if(count < 350 && window.screen.width > 768) {
+          popupContent.style.top = count + 'px';
+        }else{
+          cancelAnimationFrame(flyInterval);
+        }
+      } 
       popupBtn.forEach((elem) => {
         elem.addEventListener('click', () => {
           popup.style.display = 'block';
+          flyInterval = requestAnimationFrame(flyAnimate);
+          animate = false;
         });
       });          
       popupClose.addEventListener('click', () =>{
-        popup.style.display = 'none';
-      });
+        popup.style.display = 'none';        
+        cancelAnimationFrame(flyInterval);
+      });   
       
     };
     togglePopup();
 
+
+
 });
+
 
 
 
