@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
     'use strict';
-  
+    // таймер 
     function counterTimer(deadline){
         let timeHours = document.querySelector('#timer-hours');
         let timeMinutes = document.querySelector('#timer-minutes');
@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", function(){
         
             return {timeRemaining, hours, minutes, seconds, day};
         }
+        let idInterval = setInterval(updateClock, 1000);  
+
         function updateClock(){
             let timer = getTimeRemaining(); 
             let seconds = ('0' +  timer.seconds).slice(-2);
@@ -33,16 +35,13 @@ document.addEventListener("DOMContentLoaded", function(){
             timeSeconds.textContent = seconds;
             timeDay.textContent = day;
 
-          if(timer.timeRemaining > 0){
-            let idInterval = setInterval(updateClock, 1000);
-            // clearInterval(idInterval);
-           
-          } else{
-            timeDay.textContent = '00';
+         
+          if(timer.timeRemaining < 0){
+            timeDay.style.display = '00';
             timeHours.textContent = '00';
             timeMinutes.textContent = '00';
             timeSeconds.textContent = '00';            
-            clearInterval(idInterval);
+            clearInterval(idInterval);                    
           }
             
         
@@ -53,7 +52,53 @@ document.addEventListener("DOMContentLoaded", function(){
 
     counterTimer('24 august 2021');    
     // setInterval(counterTimer, 1000, '1 july 2019');
+
+    // меню
+    const toggleMenu = () => {
+      const btnMenu = document.querySelector('.menu'),
+            menu = document.querySelector('menu'),
+            closeBtn = document.querySelector('.close-btn'),
+            menuItems = document.querySelectorAll('ul>li');
+      const handlerMenu = () => {
+        // способ 1 с помощью стилей
+        // if(!menu.style.transform || menu.style.transform === 'translate(-100%)'){
+        //   menu.style.transform = 'translate(0)';
+        //   }else{
+        //   menu.style.transform = 'translate(-100%)';
+        //   }    
+        // способ 2 с помощью классов 
+        menu.classList.toggle('active-menu');
+        }     
+
+        btnMenu.addEventListener('click', handlerMenu);
+      
+        closeBtn.addEventListener('click', handlerMenu);
+        
+        menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));  
+
+    };
+    toggleMenu();
+    // popup
+    const togglePopup = () => {
+      const popup = document.querySelector('.popup'),
+            popupBtn = document.querySelectorAll('.popup-btn'),
+            popupClose = document.querySelector('.popup-close') ;
+      
+      popupBtn.forEach((elem) => {
+        elem.addEventListener('click', () => {
+          popup.style.display = 'block';
+        });
+      });          
+      popupClose.addEventListener('click', () =>{
+        popup.style.display = 'none';
+      });
+      
+    };
+    togglePopup();
+
 });
+
+
 
 
 

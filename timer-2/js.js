@@ -12,22 +12,31 @@ document.addEventListener("DOMContentLoaded", function(){
             
       let myDate = new Date();
       let fullDate = days[myDate.getDay()];
-      let Hour = myDate.getHours(),
-        Minutes = myDate.getMinutes(),
-        Seconds = myDate.getSeconds();      
+      let hour = myDate.getHours(),
+        minutes = myDate.getMinutes(),
+        seconds = myDate.getSeconds(),
+        amPm = 'AM';      
 
-      dayWeek.textContent =  `Сегодня ${fullDate}`;
-      time.textContent = `Текущее время ${Hour}:${Minutes}:${Seconds} PM`;
+  
 
-      if(Hour >= 0 && Hour < 6){
+      if(hour >= 0 && hour < 6){
         timeDay.textContent =  `Доброй ночи!`;
-      } else if (Hour >= 6  && Hour < 12){
+      } else if (hour >= 6  && hour < 12){
         timeDay.textContent =  `Доброе утро!`;
-      } else if(Hour >= 12  && Hour < 18){
+      } else if(hour >= 12  && hour < 18){
         timeDay.textContent =  `Доброе день!`;
-      } else if (Hour >= 18  && Hour < 24){
+      } else if (hour >= 18  && hour < 24){
         timeDay.textContent =  `Добрый вечер!`;
       }
+
+      if(hour >= 0 && hour < 12){
+        amPm =  `AM`;
+      } else if(hour >= 12  && hour < 24){
+        amPm =  `PM`;
+      }
+
+
+      
       
   
       function getTimeRemaining(){
@@ -35,24 +44,22 @@ document.addEventListener("DOMContentLoaded", function(){
           dateNow = new Date().getTime(),
           timeRemaining = (dateStop - dateNow) / 1000,
          
-          day = Math.floor(timeRemaining / 60 / 60 / 24);
-         console.log( timeRemaining );
+          day = Math.floor(timeRemaining / 60 / 60 / 24);         
       
           return {timeRemaining, day};
       }
-      function updateClock(){          let timer = getTimeRemaining();           
-          
-          term.textContent = `До нового года осталось ${ timer.day} дней`;         
+      let idInterval = setInterval(updateClock, 1000);
 
-        if(timer.timeRemaining > 0){
-          let idInterval = setInterval(updateClock, 1000);
-          clearInterval(idInterval);
+      function updateClock(){          
+        let timer = getTimeRemaining();
+        dayWeek.textContent =  `Сегодня ${fullDate}`;
+        time.textContent = `Текущее время ${hour}:${minutes}:${seconds} ${amPm}`;              
+        term.textContent = `До нового года осталось ${ timer.day} дней`;     
          
-        } else{
+        if(timer.timeRemaining < 0){
           term.textContent =  `До нового года осталось 0 дней`;          
-          clearInterval(idInterval);
-        }          
-      
+          clearInterval(idInterval);         
+        }               
       }
       updateClock();
   }
