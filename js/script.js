@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let timeSeconds = document.querySelector('#timer-seconds');
         let timeDay  = document.querySelector('#timer-day');
         
-    
+        function getTimeRemaining(){ 
         let dateStop = new Date(deadline).getTime(),
             dateNow = new Date().getTime(),
             timeRemaining = (dateStop - dateNow) / 1000,
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function(){
         
             return {timeRemaining, hours, minutes, seconds, day};
         }
+
         let idInterval = setInterval(updateClock, 1000);  
 
         function updateClock(){
@@ -33,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function(){
             timeMinutes.textContent = minutes;
             timeSeconds.textContent = seconds;
             timeDay.textContent = day;
-
          
           if(timer.timeRemaining < 0){
             timeDay.style.display = '00';
@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function(){
             
         
         }
+        
 
         updateClock();
     }

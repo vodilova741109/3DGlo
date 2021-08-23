@@ -6,15 +6,7 @@ document.addEventListener("DOMContentLoaded", function(){
       let timeDay  = document.querySelector('#times-day');
       let dayWeek  = document.querySelector('#day-week');
       let time  = document.querySelector('#time');
-      let term  = document.querySelector('#term');
-     
-            
-    
-
-
-
-
-      
+      let term  = document.querySelector('#term');      
       
   
       function getTimeRemaining(){
@@ -22,11 +14,11 @@ document.addEventListener("DOMContentLoaded", function(){
           dateNow = new Date().getTime(),
           timeRemaining = (dateStop - dateNow) / 1000,         
           day = Math.floor(timeRemaining / 60 / 60 / 24); 
-      let days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];    
-      let myDate = new Date();
-      let fullDate = days[myDate.getDay()];
-      console.log('fullDate : ', fullDate );
-      
+        let days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];    
+        let myDate = new Date();
+        let fullDate = days[myDate.getDay()];
+        console.log('fullDate : ', fullDate );
+        
 
       let hour = myDate.getHours(),
           minutes = myDate.getMinutes(),
