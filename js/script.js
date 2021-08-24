@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function(){
             timeDay.textContent = day;
          
           if(timer.timeRemaining < 0){
-            timeDay.style.display = '00';
+            timeDay.textContent = '00';
             timeHours.textContent = '00';
             timeMinutes.textContent = '00';
             timeSeconds.textContent = '00';            
@@ -99,14 +99,14 @@ document.addEventListener("DOMContentLoaded", function(){
         flyInterval = requestAnimationFrame(flyAnimate);
         count++;        
         if(count < 350 && window.screen.width > 768) {
-          popupContent.style.top = count + 'px';
+          popupContent.style.top = count + 'px';          
         }else{
           cancelAnimationFrame(flyInterval);
         }
       } 
       popupBtn.forEach((elem) => {
         elem.addEventListener('click', () => {
-          popup.style.display = 'block';
+          popup.style.display = 'block';          
           flyInterval = requestAnimationFrame(flyAnimate);
           animate = false;
         });
