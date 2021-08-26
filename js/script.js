@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function(){
       const btnMenu = document.querySelector('.menu'),
             menu = document.querySelector('menu'),
             closeBtn = document.querySelector('.close-btn'),
-            menuItems = document.querySelectorAll('ul>li');
+            menuItems = document.querySelectorAll('ul>li>a');
       const handlerMenu = () => {
         // способ 1 с помощью стилей
         // if(!menu.style.transform || menu.style.transform === 'translate(-100%)'){
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function(){
        // анимация меню
 
        let count = -100; 
-       let flyInterval;
+       let modalInterval;
        const popupContent = document.querySelector('.popup-content');
       
        // console.log(popupContent);
@@ -95,25 +95,28 @@ document.addEventListener("DOMContentLoaded", function(){
       let animate = false;     
 
          
-      let flyAnimate = function(){
-        flyInterval = requestAnimationFrame(flyAnimate);
+      let modalAnimate = function(){         
         count++;        
-        if(count < 350 && window.screen.width > 768) {
+        if(count < 150 && window.screen.width > 768) {
           popupContent.style.top = count + 'px';          
         }else{
-          cancelAnimationFrame(flyInterval);
+          clearInterval(modalInterval);         
         }
       } 
+      modalInterval =  setInterval(modalAnimate, 10);   
+
       popupBtn.forEach((elem) => {
         elem.addEventListener('click', () => {
+          count = -100; 
           popup.style.display = 'block';          
-          flyInterval = requestAnimationFrame(flyAnimate);
+          setInterval(modalAnimate, 10);
           animate = false;
         });
-      });          
+      });  
+         
       popupClose.addEventListener('click', () =>{
         popup.style.display = 'none';        
-        cancelAnimationFrame(flyInterval);
+        clearInterval(modalInterval);        
       });   
       
     };
