@@ -82,17 +82,18 @@ document.addEventListener("DOMContentLoaded", function(){
           if(target.closest('.menu')){
             handlerMenu(); 
                 console.log(target);          
-          };          
-          if(target.closest('.close-btn')){ 
+          } else if(target.closest('.close-btn')){ 
             handlerMenu();  
             console.log(target);             
-          };
-       
-           if(target.closest('menu>ul>li>a')){
+          } else if(target.closest('menu>ul>li>a')){
             handlerMenu();  
             console.log(target);    
-          }
-                 
+          } else {
+            target = target.closest('menu');
+            if(!target){
+              menu.classList.remove('active-menu');
+            }           
+          }                
 
         });
 
