@@ -44,76 +44,44 @@ document.addEventListener("DOMContentLoaded", function(){
           }
             
         
-        }
-        
-
+        }   
         updateClock();
     }
-
     counterTimer('24 august 2021');    
-    // setInterval(counterTimer, 1000, '1 july 2019');
-
-    // меню
+     // меню
     const toggleMenu = () => {
       const body = document.querySelector('body'),         
             menu = document.querySelector('menu');            
             
-      const handlerMenu = () => {
-        // способ 1 с помощью стилей
-        // if(!menu.style.transform || menu.style.transform === 'translate(-100%)'){
-        //   menu.style.transform = 'translate(0)';
-        //   }else{
-        //   menu.style.transform = 'translate(-100%)';
-        //   }    
-        // способ 2 с помощью классов 
+      const handlerMenu = () => {              
         menu.classList.toggle('active-menu');
-        }     
-
-        // btnMenu.addEventListener('click', handlerMenu);
-      
-        // closeBtn.addEventListener('click', handlerMenu);
-        
-        // menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));  
-  
-
-        body.addEventListener('click', (event) => {
-          let target = event.target;      
-      
-          if(target.closest('.menu')){
-            handlerMenu(); 
-                console.log(target);          
-          } else if(target.closest('.close-btn')){ 
-            handlerMenu();  
-            console.log(target);             
-          } else if(target.closest('menu>ul>li>a')){
-            handlerMenu();  
-            console.log(target);    
-          } else {
-            target = target.closest('menu');
-            if(!target){
-              menu.classList.remove('active-menu');
-            }           
-          }                
-
+        }  
+      body.addEventListener('click', (event) => {
+        let target = event.target;                  
+        if(target.closest('.menu')){
+          handlerMenu();                      
+        } else if(target.closest('.close-btn')){ 
+          handlerMenu();                 
+        } else if(target.closest('menu>ul>li>a')){
+          handlerMenu();            
+        } else {
+          target = target.closest('menu');
+          if(!target){
+            menu.classList.remove('active-menu');
+          }           
+        }  
         });
-
-
-
-    };
+    };    
     toggleMenu();
     // popup
     const togglePopup = () => {
       const popUp = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn');
        // анимация меню
-
        let count = -100; 
        let modalInterval;
-       const popupContent = document.querySelector('.popup-content');
-      
-       // console.log(popupContent);          
-
-      let animate = false;     
+       const popupContent = document.querySelector('.popup-content');   
+      let animate = false;  
          
       let modalAnimate = function(){         
         count++;        
@@ -135,8 +103,7 @@ document.addEventListener("DOMContentLoaded", function(){
       });  
          
       popUp.addEventListener('click', (event) =>{
-        let target = event.target;       
-      
+        let target = event.target;      
         if(target.classList.contains('popup-close')){
           popUp.style.display = 'none';               
         } else {
@@ -146,78 +113,60 @@ document.addEventListener("DOMContentLoaded", function(){
             clearInterval(modalInterval);   
           }
         }             
-           
-      });   
-      
+      });         
     };
     togglePopup();
-
     // табы
-
     const tabs = () => {
       const tabHeader = document.querySelector('.service-header'),
-          tab = tabHeader.querySelectorAll('.service-header-tab'),
-          tabContent = document.querySelectorAll('.service-tab');
-          const toggleTabContent = (index) => {
-            for(let i = 0; i< tabContent.length; i++){
-                  if(index === i){
-                    tabContent[i].classList.remove('d-none');
-                    tab[i].classList.add('active');
-                  } else{
-                    tabContent[i].classList.add('d-none');
-                    tab[i].classList.remove('active');
-                  }
+            tab = tabHeader.querySelectorAll('.service-header-tab'),
+            tabContent = document.querySelectorAll('.service-tab');
+      const toggleTabContent = (index) => {
+      for(let i = 0; i< tabContent.length; i++){
+            if(index === i){
+              tabContent[i].classList.remove('d-none');
+              tab[i].classList.add('active');
+            } else{
+              tabContent[i].classList.add('d-none');
+              tab[i].classList.remove('active');
             }
-          }
-
-          tabHeader.addEventListener('click', (event) =>{
-            let target = event.target;        
-                target = target.closest('.service-header-tab');
-               
-            if(target){
-              tab.forEach((item, i) =>{
-                 if(item === target){
-                   toggleTabContent(i);
-                 }
-            
-              })
-            }
+        }
+      }
+      tabHeader.addEventListener('click', (event) =>{
+        let target = event.target;     
+        console.log(target);      
+            target = target.closest('.service-header-tab');    
+            console.log(target);           
+        if(target){
+          tab.forEach((item, i) =>{
+              if(item === target){
+                toggleTabContent(i);
+              }            
           })
+        }
+      })
     };
     tabs();
-    
-
-
     // слайдер
     const slide = document.querySelectorAll('.portfolio-item'),
-            dots = document.querySelector('.portfolio-dots');              
+              dots = document.querySelector('.portfolio-dots');       
        
-   
-      for(let i = 0; i < slide.length; i++) {
-        const dot = document.createElement('div');
-        dot.className = "dot";      
-        dots.appendChild(dot);
-      }
-
-   
+    for(let i = 0; i < slide.length; i++) {
+      const dot = document.createElement('div');
+      dot.className = "dot";      
+      dots.appendChild(dot);
+    }
     const slider = () =>{
       const dot =  document.querySelectorAll('.dot'),
-            slider = document.querySelector('.portfolio-content');
-            
+            slider = document.querySelector('.portfolio-content');            
       let currentSlide = 0;
-      let interval;
-
-   
-     
+      let interval;      
       const prevSlide =(elem, index, strClass) => {
-        
         elem[index].classList.remove(strClass);
       };
-
       const nextSlide =(elem, index, strClass) => {
         elem[index].classList.add(strClass);
       };
-
       const autoPlaySlide = () =>{
         prevSlide(slide, currentSlide, 'portfolio-item-active');     
         prevSlide(dot, currentSlide, 'dot-active');    
@@ -229,25 +178,19 @@ document.addEventListener("DOMContentLoaded", function(){
         nextSlide(dot, currentSlide, 'dot-active');         
       };
       const startSlide = (time = 3000) =>{
-        interval = setInterval(autoPlaySlide, time);
-        // console.log(interval);
-        
+        interval = setInterval(autoPlaySlide, time);        
       };
       const stopSlide = () =>{
         clearInterval(interval);
       };
-
       slider.addEventListener('click', (event) => {
         event.preventDefault();
-
         let target = event.target;
         if(!target.matches('.portfolio-btn, .dot')){
           return;
         }
-
         prevSlide(slide, currentSlide, 'portfolio-item-active');     
-        prevSlide(dot, currentSlide, 'dot-active');    
-
+        prevSlide(dot, currentSlide, 'dot-active'); 
         if(target.matches('#arrow-right')){
           currentSlide++; 
         } else if(target.matches('#arrow-left')){
@@ -262,16 +205,12 @@ document.addEventListener("DOMContentLoaded", function(){
         if(currentSlide >= slide.length){
           currentSlide = 0;
         }
-
         if(currentSlide < 0){
           currentSlide = slide.length - 1;
         }
         nextSlide(slide, currentSlide, 'portfolio-item-active');     
         nextSlide(dot, currentSlide, 'dot-active');    
-
       });
-
-      
       slider.addEventListener('mouseover', (event) => {
         if(event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
           stopSlide();
@@ -282,14 +221,81 @@ document.addEventListener("DOMContentLoaded", function(){
           startSlide();
         }       
       });
-
       startSlide(1500);
-
     };
     slider();
-
-
-
+    // блок наша командв
+    const  img = document.querySelectorAll('.command__photo');
+    img.forEach((item) =>{
+      let srcItem = item.src;          
+      item.addEventListener('mouseover', (event) => {
+        let target = event.target;            
+          event.target.src = event.target.dataset.img;               
+      });
+      item.addEventListener('mouseout', (event) => {
+        event.target.src = srcItem;        
+      }); 
+    }); 
+    // регулярные выражения
+    const inputCalc = document.querySelectorAll('.calc-block input'),
+            name = document.querySelectorAll('[name = user_name]'),
+            message = document.getElementById('form2-message'),
+            email = document.querySelectorAll('[type = email]'),
+            phone = document.querySelectorAll('[type = tel]'),
+            input = document.querySelectorAll('input');
+            // console.log(input);          
+    // данные в калькуляторе
+    inputCalc.forEach((item) => {
+      item.addEventListener('input', () => {        
+        let text = item.value;   
+        item.value = text.replace(/\D/g, '');       
+      });
+    });
+    // имя
+    name.forEach((item) => {
+      item.addEventListener('input', () => {         
+        let text = item.value;          
+        item.value = text.replace(/\w/gi, '');          
+      });
+      item.addEventListener('blur', () => {
+        let text = item.value;        
+        let newText = text.toLowerCase();        
+        item.value = newText[0].toUpperCase() + newText.slice(1);          
+      });
+    });
+    // сообщение
+    message.addEventListener('input', () => {        
+      let textMessage = message.value; 
+      message.value = textMessage.replace(/\w/gi, '');    
+    });
+    message.addEventListener("blur", () => {
+      let text = message.value;       
+      message.value = text.replace(/\s+/g, ' ').trim();
+      let textNew = message.value; 
+      message.value = textNew.replace(/-+/g, '-').trim();
+   
+    }, true);
+    //  email
+    email.forEach((item) => {
+      item.addEventListener('input', () => {    
+        let text = item.value;
+        const email = text.match(/\w+@\w+\.\w{2,3}/g);       
+        if(email){       
+          item.value = email;
+        }  
+      });
+    });
+    // телефон
+    phone.forEach((item) => {
+           item.addEventListener('input', () => {    
+        let text = item.value;      
+        const phone = text.match(/\+?[78]([-()]*\d){10}/g);  
+        console.log(phone);     
+        if(phone){       
+          item.value = phone;
+        }        
+      });
+    });
 });
 
 
