@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function(){
      // сообщение
      message.addEventListener('input', () => {          
       let text = message.value; 
-      message.value = text.match(/[А-ЯЁа-яё\s-]+/ig);    
+      message.value = text.match(/[А-ЯЁа-яё\s-,:;\.\?!]+/ig);    
     });
      //  email
      email.forEach((item) => {
@@ -369,10 +369,10 @@ document.addEventListener("DOMContentLoaded", function(){
    const errorMessage = 'Что то пошло не так...',
          loadMessage = 'Загрузка...',
          successMesage = 'Спасибо мы скоро с вами свяжемся!';
-    const form = document.querySelectorAll('form'), 
-          // form1 = document.querySelectorAll('form') ,  
+    const form = document.querySelectorAll('form'),          
           statusMessage = document.createElement('div');       
           statusMessage.style.cssText ='font-size: 2rem;';
+          statusMessage.style.color ='#ffffff';
       
     form.forEach((item) =>{
       item.addEventListener('submit', (event) =>{
@@ -385,16 +385,8 @@ document.addEventListener("DOMContentLoaded", function(){
           body[val[0]] = val[1];
         }
         postData(
-          body, 
-          () =>{
-            statusMessage.textContent = successMesage;
-          }, 
-          (error) => {
-            statusMessage.textContent = errorMessage;
-            console.error(error);
-          }
+          body       
         );
-
         const inputForm = document.querySelectorAll('form input');
          
         inputForm.forEach((item)  => {
@@ -406,34 +398,38 @@ document.addEventListener("DOMContentLoaded", function(){
       });
     });            
    
-    const postData = (body, outputData, errorData) =>{
-      const request = new XMLHttpRequest();
-      request.addEventListener('readystatechange', () => {
+    const postData = (body) =>{
+      const prom = new Promise((resolve, reject) =>{
+        const request = new XMLHttpRequest();
+        request.open('POST', './server.php');  
+        request.setRequestHeader('Content-Type', 'application/json'); 
         
-        if(request.readyState !== 4) {
-          return;
-        }
-        if (request.status === 200){
-          outputData();
-         
-        } else {
-          errorData(request.status);
-         
-        }
+        request.addEventListener('readystatechange', () => {
+          
+          if(request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200){
+            resolve(body);
+          
+          } else {            
+            reject(request.status);           
+          }
+        });  
+         request.send(JSON.stringify(body));
       });
-
-      request.open('POST', './server.php');      
-      // request.setRequestHeader('Content-Type', 'multipart/form-data');
-      request.setRequestHeader('Content-Type', 'application/json');
-    
-      
-      // request.send(formData); если через formData
-           request.send(JSON.stringify(body));
-
-          
-          
+      let mess = () =>{       
+        statusMessage.textContent = successMesage;
+      };  
+      let error = ()  => {     
+        statusMessage.textContent = errorMessage;
+        
+      }
+      prom.then(mess)
+       .catch(error);   
     }
-   
+      postData();  
+       
   }    
   sendForm();
 
