@@ -384,9 +384,23 @@ document.addEventListener("DOMContentLoaded", function(){
         for (let val of formData.entries()){
           body[val[0]] = val[1];
         }
-        postData(
-          body       
-        );
+        let mess = (response) =>{       
+          if(response.status !== 200){
+            throw new Error('status network not 200');
+          }         
+          statusMessage.textContent = successMesage;
+          setTimeout(() => {statusMessage.textContent = ''; }, 3000);
+        };  
+        let error = ()  => {     
+          statusMessage.textContent = errorMessage;
+          setTimeout(() => {statusMessage.textContent = ''; }, 3000);
+          
+        }
+        postData(body)
+              .then(mess)
+              .catch(error);  
+
+        postData(body);  
         const inputForm = document.querySelectorAll('form input');
          
         inputForm.forEach((item)  => {
@@ -399,37 +413,14 @@ document.addEventListener("DOMContentLoaded", function(){
     });            
    
     const postData = (body) =>{
-      const prom = new Promise((resolve, reject) =>{
-        const request = new XMLHttpRequest();
-        request.open('POST', './server.php');  
-        request.setRequestHeader('Content-Type', 'application/json'); 
-        
-        request.addEventListener('readystatechange', () => {
-          
-          if(request.readyState !== 4) {
-            return;
-          }
-          if (request.status === 200){
-            resolve(body);
-          
-          } else {            
-            reject(request.status);           
-          }
-        });  
-         request.send(JSON.stringify(body));
+      return fetch('./server.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(body)        
       });
-      let mess = () =>{       
-        statusMessage.textContent = successMesage;
-      };  
-      let error = ()  => {     
-        statusMessage.textContent = errorMessage;
-        
-      }
-      prom.then(mess)
-       .catch(error);   
     }
-      postData();  
-       
   }    
   sendForm();
 
