@@ -38,8 +38,7 @@ function counterTimer(deadline){
         timeMinutes.textContent = '00';
         timeSeconds.textContent = '00';            
         clearInterval(idInterval);                    
-      }
-        
+      }        
     
     }   
     updateClock();
