@@ -27,12 +27,19 @@ name.forEach((item) => {
     let textNew = item.value; 
     item.value = textNew.replace(/[\s-]$/g, '').trim();    
     }      
-    let name = item.value;        
-    let newText = name.toLowerCase();      
-    if(newText){
-    item.value = newText[0].toUpperCase() + newText.slice(1);
-    }  
+    let name = item.value.split('-');    
+    name.forEach((elem) => {
+      if (elem !== ''){   
+        let newText = elem.toLowerCase();      
+        if(newText){
+        elem.value = newText[0].toUpperCase() + newText.slice(1);
+        } 
+        this.name.push(elem);     
+      }
+    });   
+    
   });
+  console.log(item);
 });
 // сообщение
 message.addEventListener('input', () => {          
