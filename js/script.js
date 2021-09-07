@@ -259,18 +259,21 @@ document.addEventListener("DOMContentLoaded", function(){
       });
       item.addEventListener('blur', () => {
         let text = item.value;  
-        if( (/^[\s-]/.test(text)) || /[\s-]$/.test(text)){              
-          item.value = text.replace(/^[\s-]/g, '').trim();
+        if( (/^[\s-,]/.test(text)) || /[\s-,]$/.test(text)){              
+          item.value = text.replace(/^[\s-,]/g, '').trim();
           let textNew = item.value; 
-          item.value = textNew.replace(/[\s-]$/g, '').trim();    
+          item.value = textNew.replace(/[\s-,]$/g, '').trim();    
         }      
-        let name = item.value;        
+        let name1 = item.value.split(' '); 
+        console.log(name1);       
         let newText = name.toLowerCase();      
         if(newText){
           item.value = newText[0].toUpperCase() + newText.slice(1);
         }  
+        console.log(name);
       });
     });
+   
      // сообщение
      message.addEventListener('input', () => {          
       let text = message.value; 
