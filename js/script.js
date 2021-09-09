@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function(){
               console.log(newObj);
           }   
         });  
-        item.value = newObj.join(' ');
+        item.value = newObj.join('-');
          if( (/^[\s-,]/.test(text)) || /[\s-,]$/.test(text)){              
           item.value = text.replace(/^[\s-,]/g, '').trim();
           let textNew = item.value; 
