@@ -57,6 +57,7 @@ if(emailText){
 });
 
 });
+
 // телефон
 phone.forEach((item) => {
 item.addEventListener('input', () => {    
@@ -74,6 +75,7 @@ if(phoneText){
 }
 });      
 });
+
 
 input.forEach((item) => {
 item.addEventListener("blur", () => {
