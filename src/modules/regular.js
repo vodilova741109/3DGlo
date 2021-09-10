@@ -4,7 +4,8 @@ const regular = () => {
    name = document.querySelectorAll('[name = user_name]'),
    message = document.getElementById('form2-message'),
    email = document.querySelectorAll('[type = email]'),
-   phone = document.querySelectorAll('[type = tel]'),            
+   phone = document.querySelectorAll('[type = tel]'),  
+   btn = document.querySelectorAll('form button'),          
    input = document.querySelectorAll('input');
      
 // данные в калькуляторе
