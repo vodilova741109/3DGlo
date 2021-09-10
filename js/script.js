@@ -276,40 +276,51 @@ document.addEventListener("DOMContentLoaded", function(){
       let text = message.value; 
       message.value = text.match(/[А-ЯЁа-яё\s-]+/ig);    
     });
-     //  email
-     email.forEach((item) => {
-      item.addEventListener('input', () => {    
-        let text = item.value;
-        item.value = text.match(/[A-Za-z@_!~'\.\*]+/ig);          
-      });
-      item.addEventListener("blur", () => {
-        let text = item.value; 
-        const emailText = text.match(/\w+@\w+\.\w{2,3}/g);      
-        if(emailText){       
-          item.value = emailText;        
-        }  else {
-          alert('Вы ввели не корректный email');
-        }
-      });
+             //  email
     
-    });
-     // телефон
-     phone.forEach((item) => {
-      item.addEventListener('input', () => {    
-        let text = item.value;      
-        item.value = text.match(/[0-9-\(\)\+]+/g);   
-      
-      });  
-      item.addEventListener("blur", () => {
-        let text = item.value; 
-        const phoneText = text.match(/\+?[78]([-()]*\d){10}/g);     
-        if(phoneText){       
-          item.value = phoneText;        
-        }  else {
-          alert('Вы ввели не корректный телефон');
-        }
-      });      
-    });
+             email.forEach((item) => {  
+              item.addEventListener('input', () => {    
+                let text = item.value;
+                item.value = text.match(/[A-Za-z@_!~'\.\*]+/ig);          
+              });
+              item.addEventListener("blur", () => {
+                let text = item.value; 
+                const emailText = text.match(/\w+@\w+\.\w{2,3}/g);      
+                if(emailText){       
+                  item.value = emailText;        
+                }  else {  
+                  btn.forEach((item) =>{
+                    console.log(item);  
+                       item.disabled= true;
+                  })  
+                  return;
+                }
+              });
+            
+            });
+             // телефон
+        
+             phone.forEach((item) => {
+              item.addEventListener('input', () => {    
+                let text = item.value;      
+                item.value = text.match(/[0-9-\(\)\+]+/g);   
+              
+              });  
+              item.addEventListener("blur", () => {
+                let text = item.value; 
+                const phoneText = text.match(/\+?[78]([-()]*\d){10}/g);     
+                if(phoneText){       
+                  item.value = phoneText;  
+                  item.disabled= false;
+                }else {
+                  btn.forEach((item) =>{
+                    console.log(item);  
+                       item.disabled= true;
+                  })        
+                }
+              });      
+            });
+        
 
     input.forEach((item) => {
       item.addEventListener("blur", () => {
